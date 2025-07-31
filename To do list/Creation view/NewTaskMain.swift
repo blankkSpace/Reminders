@@ -14,7 +14,8 @@ struct NewTaskMain: View {
     @State private var eventDate: Date = Date()
     
     //Save load save functionality
-    @StateObject private var saveData = dataStore()
+//    @StateObject private var saveData = dataStore()
+    @ObservedObject var saveData: dataStore
     
     
     //Calling strucct reminderModel
@@ -61,7 +62,8 @@ struct NewTaskMain: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Add") {
-                            saveData.save()
+                            print("Saving reminder:", reminderData)
+                            saveData.save(reminderData: reminderData)
                             dismiss()
                         }
                         .foregroundStyle(.blue)
@@ -71,6 +73,6 @@ struct NewTaskMain: View {
     }
 }
 
-#Preview {
-    NewTaskMain()
-}
+//#Preview {
+//    NewTaskMain(saveData: dataStore)
+//}

@@ -13,14 +13,16 @@ class dataStore: ObservableObject {
         loadReminders()
     }
     
-    private var reminderData = reminderModel(title: "", description: nil ,date: Date())
+//    private var reminderData = reminderModel(title: "", description: nil ,date: Date())
+    
+    public var loadedReminders: [reminderModel] = []
     
 //    @Published var reminderData: [reminderModel] = []
     let jsonPath = URL.documentsDirectory.appendingPathComponent("reminders.json")
     
     //Checks if the file orignally exisits and appends to the file if it does
     //else it will simple create and add to it
-    func save() {
+    func save(reminderData: reminderModel) {
         do{
             var existingReminders: [reminderModel] = []
             if(FileManager.default.fileExists(atPath: jsonPath.path)){
@@ -33,13 +35,26 @@ class dataStore: ObservableObject {
 //            let jsonURL = URL.documentsDirectory.appendingPathComponent("remi")
 //            let parentData = try JSONEncoder().encode([reminderData])
 //            try parentData.write(to: jsonURL)
+            loadReminders()
         } catch {
-            print(error.localizedDescription)
+            print("Save error: \(error.localizedDescription)")
+               print("Error info: \(error)")
         }
+        
+     
+        
     }
     
     func loadReminders(){
-        
+        if FileManager().fileExists(atPath: jsonPath.path){
+            do {
+                let jsonData = try Data(contentsOf: jsonPath)
+                loadedReminders = try JSONDecoder().decode([reminderModel].self, from: jsonData)
+            }
+            catch{
+                print(error.localizedDescription)
+            }
+        }
     }
 
     
