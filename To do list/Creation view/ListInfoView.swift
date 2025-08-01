@@ -47,7 +47,7 @@ struct ListInfoView: View {
         NavigationStack {
             ScrollView {
                 
-                sectionCard() {
+                sectionCard(backColor: Color(UIColor.secondarySystemGroupedBackground)) {
                     
                     DisplayIconCircle()
                     
@@ -64,7 +64,7 @@ struct ListInfoView: View {
                     }
                 }
                 
-                sectionCard() {
+                sectionCard(backColor: Color(UIColor.secondarySystemGroupedBackground)) {
                     Text("Pick a color")
                         .font(.headline)
                         .foregroundColor(.secondary)
@@ -80,7 +80,7 @@ struct ListInfoView: View {
                     .padding(.horizontal)
                 }
                 
-                sectionCard() {
+                sectionCard(backColor: Color(UIColor.secondarySystemGroupedBackground)) {
                     Text("Select an icnon")
                         .font(.headline)
                         .foregroundColor(.secondary)
@@ -90,28 +90,15 @@ struct ListInfoView: View {
                                     print("Buttton pressed")
                                 } label: {
                                     ZStack{
-                                        Circle()
-                                            .fill(Color.white) // Background color
-                                            .frame(width: 40, height: 40)
-
                                         Image(systemName: symbol)
-                                            .foregroundColor(.gray) // Icon color
-                                            .font(.system(size: 20))
+                                            .foregroundColor(Color.primary.opacity(0.60)) // Uses primary to manage color between light and dark mode
+                                            .font(.system(size: 24))
+                                            .frame(width: 50, height: 50)
+                                            .background(Color.primary.opacity(0.10))
+                                            .clipShape(Circle())
                                     }
                                     
                                 }
-//                                Circle()
-//                                    .fill(Color.white) // Background color
-//                                    .frame(width: 40, height: 40)
-//
-//                                Image(systemName: symbol)
-//                                    .foregroundColor(.gray) // Icon color
-//                                    .font(.system(size: 20))
-                            
-                                
-//                            Image(systemName: symbol)
-//                                .resizable()
-//                                .frame(width: 20, height: 20)
                         }
                         
                     }
@@ -119,6 +106,7 @@ struct ListInfoView: View {
                 }
                 
             }
+            .background(Color(UIColor.systemGroupedBackground)) // Only scroll content
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {

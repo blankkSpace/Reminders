@@ -17,7 +17,7 @@ struct sectionCard<Content: View>: View {
     var backColor: Color
     let content: Content
 
-    init(backColor: Color = Color(UIColor.systemGray6), @ViewBuilder content: () -> Content) {
+    init(backColor: Color = Color.white , @ViewBuilder content: () -> Content) {
         self.backColor = backColor
         self.content = content()
     }
