@@ -34,6 +34,7 @@ struct sectionCard<Content: View>: View {
                     .fill(backColor)
                )
                .padding(.horizontal, 16)
+               .padding(.vertical, 8)
     }
 }
 

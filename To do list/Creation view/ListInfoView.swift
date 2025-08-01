@@ -43,6 +43,8 @@ struct ListInfoView: View {
         GridItem(.adaptive(minimum: 44)) // adjust based on your desired circle size + padding
     ]
     
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -106,7 +108,15 @@ struct ListInfoView: View {
                 }
                 
             }
-            .background(Color(UIColor.systemGroupedBackground)) // Only scroll content
+            .background(
+                Color(UIColor.systemGroupedBackground)
+                    .overlay(
+                        colorScheme == .dark
+                        ? Color.white.opacity(0.08) // Just a slight brighten
+                        : Color.clear
+                    )
+                    .ignoresSafeArea(.all)
+            ) // Only scroll content
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
