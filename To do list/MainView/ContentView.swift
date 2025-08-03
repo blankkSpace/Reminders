@@ -12,8 +12,10 @@ struct ContentView: View {
     @State private var headingText: String = ""
     @State private var Notes: String = ""
     @State private var eventDate: Date = Date()
-    @State private var showingSheet = false
+
     @StateObject private var loader = dataStore()
+    
+    @State private var searchText: String = ""
 
     // Load reminders on appear
   
@@ -26,10 +28,13 @@ struct ContentView: View {
     ]
         
     
+    //Temporary view handeling
+    @State private var showingSheet = false
+    @State private var showingReminderList = false
+    
     var body: some View {
         NavigationStack {
             List {
-                Text("Search bar")
                 VStack{
                     HStack {
                         CatagoryObject(icon: "calendar", title: "Today", count: 10)
@@ -78,11 +83,19 @@ struct ContentView: View {
                     }
                 }
                 
+                Button("New list" ,systemImage:"plus.circle.fill") {
+                    showingReminderList.toggle()
+                    
+                }
+                    .sheet(isPresented: $showingReminderList) {
+                        ListInfoView()
+                    }
 
                 
             }
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button("New reminder" ,systemImage:"plus.circle.fill") {
